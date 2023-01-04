@@ -16,7 +16,7 @@ for style in styles:
 def set_movie_data(data):
     choice = InlineKeyboardMarkup()
     for movie in data:
-        print(movie)
+        # print(movie)
         choice.add(InlineKeyboardButton(text=movie[0], url= config.domen + movie[1]))
     choice.add(InlineKeyboardButton(
         text=' К списку категорий',
