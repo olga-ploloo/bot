@@ -1,28 +1,5 @@
 import psycopg2
-from sqlalchemy import create_engine
-from sqlalchemy import MetaData, Column, Integer, String
-from sqlalchemy.ext.declarative import declarative_base
 import config
-import pandas as pd
-
-Base = declarative_base()
-
-
-class Movie(Base):
-    __tablename__ = 'movie'
-    id = Column(Integer, primary_key=True)
-    name = Column(String)
-    link = Column(String)
-    style = Column(String)
-
-
-def create_and_fill_db():
-    engine = create_engine(config.postgre_url)
-    metadata = MetaData()
-    Base.metadata.create_all(engine)
-    file_name = 'first.csv'
-    df = pd.read_csv(file_name, error_bad_lines=False)
-    df.to_sql(con=engine, index_label='id', name=Movie.__tablename__, if_exists='replace')
 
 
 def get_movies(style) -> list:
@@ -38,3 +15,38 @@ def get_movies(style) -> list:
     cursor.close()
     conn.close()
     return result
+
+
+def connect():
+    """ Connect to the PostgreSQL database server """
+    conn = None
+    try:
+
+        # connect to the PostgreSQL server
+        print('Connecting to the PostgreSQL database...')
+        conn = psycopg2.connect(
+            dbname=config.db_name,
+            user=config.db_user,
+            password=config.db_password,
+            host=config.db_host
+        )
+
+        # create a cursor
+        cur = conn.cursor()
+
+        # execute a statement
+        print('PostgreSQL database version:')
+        cur.execute('SELECT version()')
+
+        # display the PostgreSQL database server version
+        db_version = cur.fetchone()
+        print(db_version)
+
+        # close the communication with the PostgreSQL
+        cur.close()
+    except (Exception, psycopg2.DatabaseError) as error:
+        print(error)
+    finally:
+        if conn is not None:
+            conn.close()
+            print('Database connection closed.')
