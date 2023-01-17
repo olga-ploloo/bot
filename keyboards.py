@@ -1,11 +1,12 @@
 from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
-
-import config, content
+import config
 import content
 
-lang1 = KeyboardButton('English')
-lang2 = KeyboardButton('Русский')
-lang_keyboard = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True).add(lang1).add(lang2)
+
+def get_help_keyboard() -> ReplyKeyboardMarkup:
+    return ReplyKeyboardMarkup([
+        [KeyboardButton('/start')]
+    ])
 
 
 def get_style_keyboard() -> InlineKeyboardMarkup:

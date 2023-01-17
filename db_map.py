@@ -20,10 +20,9 @@ def get_movies(style) -> list:
         result = cursor.fetchall()
         cursor.close()
         return result
-    except (Exception, psycopg2.DatabaseError) as error:
-        # logging.exception(error)
-        logger.error(error, exc_info=True)
+    except (Exception, psycopg2.Error) as error:
+        logger.exception(error)
     finally:
-        if conn is not None:
+        if conn:
             conn.close()
             logger.info('Database connection closed.')
