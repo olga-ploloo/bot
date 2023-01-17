@@ -1,39 +1,60 @@
 import config
 import keyboards
 from aiogram import Bot, Dispatcher, executor, types
+from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from content import text
-
+import logging
+import logging.handlers
 from db_map import get_movies
 
+
+# logging.basicConfig(
+#     filename="movie_bot.log",
+#     level=logging.INFO,
+#     filemode="w",
+#     format="%(asctime)s %(levelname)s %(message)s"
+# )
+
+def init_loger(name):
+    logger = logging.getLogger(name)
+    logger.setLevel(logging.INFO)
+    format = '%(asctime)s :: %(name)s:%(lineno)s :: %(levelname)s - %(message)s'
+    handler = logging.handlers.RotatingFileHandler('movie_bot.log', maxBytes=2000, backupCount=2)
+    handler.setFormatter(logging.Formatter(format))
+    logger.addHandler(handler)
+
+
 bot = Bot(token=config.TOKEN)
-dp = Dispatcher(bot)
+dp = Dispatcher(
+    bot=bot,
+    storage=MemoryStorage()
+)
+init_loger('bot')
+logger = logging.getLogger('bot.main')
 
 
 @dp.message_handler(commands=['start'])
-async def welcome(message: types.Message):
+async def welcome(message: types.Message) -> None:
     await message.answer(
         text['start_en'],
         reply_markup=keyboards.get_style_keyboard())
 
 
 @dp.message_handler(commands=['help'])
-async def help(message: types.Message):
+async def help(message: types.Message) -> None:
     await message.answer('help')
 
 
 @dp.callback_query_handler(text='back')
-async def back_button_handler(callback: types.CallbackQuery):
-    # await bot.answer_callback_query(callback.id)
-    # await bot.send_message(callback.from_user.id, text['start_en'], reply_markup=keyboards.get_style_keyboard())
+async def back_button_handler(callback: types.CallbackQuery) -> None:
     await callback.message.answer(
         text=text['start_en'],
         reply_markup=keyboards.get_style_keyboard())
 
 
 @dp.callback_query_handler()
-async def process_callback_button(callback: types.CallbackQuery):
+async def process_callback_button(callback: types.CallbackQuery) -> None:
     movies = get_movies(callback.data)
-    # await bot.answer_callback_query(callback.id)
     await callback.message.answer(
         text=text['result_ru'],
         reply_markup=keyboards.set_movie_data(movies)
@@ -41,5 +62,9 @@ async def process_callback_button(callback: types.CallbackQuery):
 
 
 if __name__ == '__main__':
-    executor.start_polling(dispatcher=dp,
-                           skip_updates=True)
+    logger.info('Start Server')
+    executor.start_polling(
+        dispatcher=dp,
+        skip_updates=True
+    )
+

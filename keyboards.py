@@ -15,10 +15,13 @@ def get_style_keyboard() -> InlineKeyboardMarkup:
     return keyboard
 
 
-def set_movie_data(data):
+def set_movie_data(data) -> InlineKeyboardMarkup:
     result = InlineKeyboardMarkup()
     for movie in data:
-        result.add(InlineKeyboardButton(text=movie[0], url=config.domen + movie[1]))
+        result.add(InlineKeyboardButton(
+            text=movie[0],
+            url=config.domen + movie[1])
+        )
     result.add(InlineKeyboardButton(
         text='⬅️ ' + content.text['back_ru'],
         callback_data='back')
