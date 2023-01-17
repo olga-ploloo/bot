@@ -1,4 +1,3 @@
-import config
 import keyboards
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -6,6 +5,7 @@ from content import text
 import logging
 import logging.handlers
 from db_map import get_movies
+from dotenv import dotenv_values
 
 
 def init_loger(name):
@@ -17,7 +17,7 @@ def init_loger(name):
     logger.addHandler(handler)
 
 
-bot = Bot(token=config.TOKEN)
+bot = Bot(token=dotenv_values().get('TOKEN'))
 dp = Dispatcher(
     bot=bot,
     storage=MemoryStorage()
