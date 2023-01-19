@@ -1,10 +1,12 @@
+import os
+
 import pandas as pd
 from sqlalchemy import create_engine, MetaData, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
 from dotenv import dotenv_values
 
 
-engine = create_engine(dotenv_values().get('postgres_url'))
+engine = create_engine(os.environ.get('postgres_url'))
 metadata = MetaData()
 Base = declarative_base()
 

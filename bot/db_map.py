@@ -1,4 +1,6 @@
 import logging
+import os
+
 import psycopg2
 from dotenv import dotenv_values
 
@@ -10,10 +12,10 @@ def get_movies(style) -> list:
     try:
         logger.info('Connecting to the PostgreSQL database.')
         conn = psycopg2.connect(
-            dbname=dotenv_values().get('db_name'),
-            user=dotenv_values().get('db_user'),
-            password=dotenv_values().get('db_password'),
-            host=dotenv_values().get('db_host')
+            dbname=os.environ.get('db_name'),
+            user=os.environ.get('db_user'),
+            password=os.environ.get('db_password'),
+            host=os.environ.get('db_host')
         )
         cursor = conn.cursor()
         cursor.execute('SELECT name, link FROM movie WHERE style = %s', (style,))
