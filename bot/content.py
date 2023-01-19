@@ -5,7 +5,7 @@ styles = [
     ['Юмор', 'humor'],
     ['Драма', 'dram'],
     ['Триллер', 'thriller'],
-    ['Преключения', 'adventure'],
+    ['Приключения', 'adventure'],
     ['Криминал', 'criminall'],
     ['Познавательно', 'educational'],
 ]
