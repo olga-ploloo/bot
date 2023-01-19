@@ -1,3 +1,5 @@
+import os
+
 import keyboards
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -12,12 +14,13 @@ def init_loger(name):
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     format = '%(asctime)s :: %(name)s:%(lineno)s :: %(levelname)s - %(message)s'
-    handler = logging.handlers.RotatingFileHandler('../movie_bot.log', maxBytes=2000, backupCount=2)
+    handler = logging.handlers.RotatingFileHandler('movie_bot.log', maxBytes=2000, backupCount=2)
     handler.setFormatter(logging.Formatter(format))
     logger.addHandler(handler)
 
 
-bot = Bot(token=dotenv_values().get('TOKEN'))
+# bot = Bot(token=dotenv_values().get('TOKEN'))
+bot = Bot(token=os.environ.get('TOKEN'))
 dp = Dispatcher(
     bot=bot,
     storage=MemoryStorage()
