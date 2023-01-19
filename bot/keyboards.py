@@ -1,13 +1,7 @@
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardButton, InlineKeyboardMarkup
+from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 from dotenv import dotenv_values
 
 import content
-
-
-def get_help_keyboard() -> ReplyKeyboardMarkup:
-    return ReplyKeyboardMarkup([
-        [KeyboardButton('/start')]
-    ])
 
 
 def get_style_keyboard() -> InlineKeyboardMarkup:

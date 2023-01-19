@@ -18,6 +18,6 @@ class Movie(Base):
 
 
 Base.metadata.create_all(engine)
-file_name = 'first.csv'
+file_name = '../first.csv'
 df = pd.read_csv(file_name, error_bad_lines=False)
 df.to_sql(con=engine, index_label='id', name=Movie.__tablename__, if_exists='replace')

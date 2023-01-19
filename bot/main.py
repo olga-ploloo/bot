@@ -12,7 +12,7 @@ def init_loger(name):
     logger = logging.getLogger(name)
     logger.setLevel(logging.INFO)
     format = '%(asctime)s :: %(name)s:%(lineno)s :: %(levelname)s - %(message)s'
-    handler = logging.handlers.RotatingFileHandler('movie_bot.log', maxBytes=2000, backupCount=2)
+    handler = logging.handlers.RotatingFileHandler('../movie_bot.log', maxBytes=2000, backupCount=2)
     handler.setFormatter(logging.Formatter(format))
     logger.addHandler(handler)
 
@@ -38,7 +38,6 @@ async def welcome(message: types.Message) -> None:
 async def help(message: types.Message) -> None:
     await message.answer(
         text['help_ru'],
-        reply_markup=keyboards.get_help_keyboard()
     )
 
 
