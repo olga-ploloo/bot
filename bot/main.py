@@ -1,3 +1,5 @@
+import os
+
 import keyboards
 from aiogram import Bot, Dispatcher, executor, types
 from aiogram.contrib.fsm_storage.memory import MemoryStorage
@@ -17,7 +19,8 @@ def init_loger(name):
     logger.addHandler(handler)
 
 
-bot = Bot(token=dotenv_values().get('TOKEN'))
+# bot = Bot(token=dotenv_values().get('TOKEN'))
+bot = Bot(token=os.environ['TOKEN'])
 dp = Dispatcher(
     bot=bot,
     storage=MemoryStorage()
