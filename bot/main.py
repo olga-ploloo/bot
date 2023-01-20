@@ -7,7 +7,6 @@ from content import text
 import logging
 import logging.handlers
 from db_map import get_movies
-from dotenv import dotenv_values
 
 
 def init_loger(name):
@@ -19,7 +18,6 @@ def init_loger(name):
     logger.addHandler(handler)
 
 
-# bot = Bot(token=dotenv_values().get('TOKEN'))
 bot = Bot(token=os.environ.get('TOKEN'))
 dp = Dispatcher(
     bot=bot,

@@ -1,7 +1,6 @@
 import os
 
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-from dotenv import dotenv_values
 
 import content
 

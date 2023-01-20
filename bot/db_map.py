@@ -2,7 +2,6 @@ import logging
 import os
 
 import psycopg2
-from dotenv import dotenv_values
 
 logger = logging.getLogger('bot.dp')
 
