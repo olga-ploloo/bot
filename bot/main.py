@@ -7,6 +7,9 @@ from content import text
 import logging
 import logging.handlers
 from db_map import get_movies
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def init_loger(name):
@@ -18,7 +21,11 @@ def init_loger(name):
     logger.addHandler(handler)
 
 
-bot = Bot(token=os.environ.get('TOKEN'))
+proxy_url = 'http://proxy.server:3128'
+bot = Bot(
+    token=os.getenv('TOKEN'),
+    proxy=proxy_url
+)
 dp = Dispatcher(
     bot=bot,
     storage=MemoryStorage()

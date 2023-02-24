@@ -1,8 +1,9 @@
 import os
-
 from aiogram.types import InlineKeyboardButton, InlineKeyboardMarkup
-
 import content
+from dotenv import load_dotenv
+
+load_dotenv()
 
 
 def get_style_keyboard() -> InlineKeyboardMarkup:
@@ -17,7 +18,7 @@ def set_movie_data(data) -> InlineKeyboardMarkup:
     for movie in data:
         result.add(InlineKeyboardButton(
             text=movie[0],
-            url=os.environ.get('domen') + movie[1])
+            url=os.getenv('domen') + movie[1])
         )
     result.add(InlineKeyboardButton(
         text='⬅️ ' + content.text['back_ru'],

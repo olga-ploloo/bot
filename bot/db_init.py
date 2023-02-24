@@ -3,8 +3,10 @@ import os
 import pandas as pd
 from sqlalchemy import create_engine, MetaData, Column, Integer, String
 from sqlalchemy.ext.declarative import declarative_base
+from dotenv import load_dotenv
 
-engine = create_engine(os.environ.get('postgres_url'))
+load_dotenv()
+engine = create_engine(os.getenv('postgres_url'))
 metadata = MetaData()
 Base = declarative_base()
 
