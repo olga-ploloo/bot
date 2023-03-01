@@ -6,7 +6,7 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from content import text
 import logging
 import logging.handlers
-from db_map import get_movies
+from db_map_postgresql import get_movies
 from dotenv import load_dotenv
 
 load_dotenv()
