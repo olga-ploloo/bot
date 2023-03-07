@@ -78,7 +78,7 @@ def query(query, params=None):
 
 def import_csv_to_table(file_name, table_name):
     try:
-        connection = get_connection_from_pool()
+        connection = create_connection_simple()
         print('here')
         if connection:
             df = pd.read_csv(file_name, error_bad_lines=False)
