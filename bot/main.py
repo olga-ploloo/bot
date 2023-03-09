@@ -6,20 +6,17 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from content import text
 import logging
 import logging.handlers
-from db_map_postgresql import get_movies
+from db_map import get_movies
 from dotenv import load_dotenv
 
 load_dotenv()
 
-
-def init_loger(name):
-    logger = logging.getLogger(name)
-    logger.setLevel(logging.INFO)
-    format = '%(asctime)s :: %(name)s:%(lineno)s :: %(levelname)s - %(message)s'
-    handler = logging.handlers.RotatingFileHandler('movie_bot.log', maxBytes=2000, backupCount=2)
-    handler.setFormatter(logging.Formatter(format))
-    logger.addHandler(handler)
-
+logger = logging.getLogger('bot')
+logger.setLevel(logging.INFO)
+format = '%(asctime)s :: %(name)s:%(lineno)s :: %(levelname)s - %(message)s'
+handler = logging.handlers.RotatingFileHandler('movie_bot.log', maxBytes=2000, backupCount=2)
+handler.setFormatter(logging.Formatter(format))
+logger.addHandler(handler)
 
 proxy_url = 'http://proxy.server:3128'
 bot = Bot(
@@ -30,8 +27,7 @@ dp = Dispatcher(
     bot=bot,
     storage=MemoryStorage()
 )
-init_loger('bot')
-logger = logging.getLogger('bot.main')
+
 
 
 @dp.message_handler(commands=['start'])
