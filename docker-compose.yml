@@ -8,7 +8,7 @@ services:
 #    env_file: .env
   web:
     build: .
-    command: python main.py
+    command: python  bot/main.py
     ports:
       - "8000:8000"
     env_file: .env

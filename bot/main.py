@@ -24,7 +24,7 @@ def init_loger(name):
 proxy_url = 'http://proxy.server:3128'
 bot = Bot(
     token=os.getenv('TOKEN'),
-    proxy=proxy_url
+    # proxy=proxy_url
 )
 dp = Dispatcher(
     bot=bot,
