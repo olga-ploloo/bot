@@ -7,6 +7,7 @@ ENV DOCKER 1
 
 # setting work directory
 WORKDIR /bot
+VOLUME .:/bot
 
 COPY . /bot
 

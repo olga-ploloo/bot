@@ -6,17 +6,18 @@ from aiogram.contrib.fsm_storage.memory import MemoryStorage
 from content import text
 import logging
 import logging.handlers
-from db_map import get_movies
+import db_map
 from dotenv import load_dotenv
 
 load_dotenv()
 
-logger = logging.getLogger('bot')
+logger = logging.getLogger(__name__)
 logger.setLevel(logging.INFO)
 format = '%(asctime)s :: %(name)s:%(lineno)s :: %(levelname)s - %(message)s'
 handler = logging.handlers.RotatingFileHandler('movie_bot.log', maxBytes=2000, backupCount=2)
 handler.setFormatter(logging.Formatter(format))
 logger.addHandler(handler)
+logger.info('Yes')
 
 proxy_url = 'http://proxy.server:3128'
 bot = Bot(
@@ -27,7 +28,6 @@ dp = Dispatcher(
     bot=bot,
     storage=MemoryStorage()
 )
-
 
 
 @dp.message_handler(commands=['start'])
@@ -55,7 +55,9 @@ async def back_button_handler(callback: types.CallbackQuery) -> None:
 
 @dp.callback_query_handler()
 async def process_callback_button(callback: types.CallbackQuery) -> None:
-    movies = get_movies(callback.data)
+    logger.info('Start process_callback_button')
+
+    movies = db_map.get_movies(callback.data)
     if movies:
         await callback.message.answer(
             text=text['result_ru'],
